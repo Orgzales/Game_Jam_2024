@@ -1,0 +1,4 @@
+repository "FIEA_Competition@void_func_FIEA@cloud"
+  path "/"
+    br "/main"
+    co "/main"

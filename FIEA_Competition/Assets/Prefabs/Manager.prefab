@@ -1,0 +1,162 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7320129303567326503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3184939797172430312}
+  - component: {fileID: 3359791756564522971}
+  - component: {fileID: 880701058347981944}
+  - component: {fileID: 7327351894491997800}
+  - component: {fileID: 1481528170344754032}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3184939797172430312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320129303567326503}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.8534884, y: 2.9169023, z: -8.854464}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3359791756564522971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320129303567326503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 046b0176489fb4089a07bc97302532f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantHealth: 0
+  hunger: 0
+  ate: 0
+  fedPlant: 0
+--- !u!114 &880701058347981944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320129303567326503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d894c1d85f666848926c891b9cade34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  round: 0
+--- !u!114 &7327351894491997800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320129303567326503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c09a8b5074ae03b4fb675414c8e89f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldEvents:
+  - title: Avalanche!
+    description: There was an avalanche last night. There is a huge pile of snow
+      in front of your shed. Who knows what might be burried beneath?
+    probability: 0.05
+    cost1:
+      cost: 3
+      plantType: 0
+      isPlant: 0
+    reward1:
+      cost: 5
+      plantType: 3
+      isPlant: 1
+    cost2:
+      cost: 3
+      plantType: 0
+      isPlant: 0
+    reward2:
+      cost: -3
+      plantType: 0
+      isPlant: 0
+  - title: Play the Market
+    description: Facility manager Phil lets you know that Amasun stock is at an all
+      time low. Now is the time to buy, Are you in?
+    probability: 0.08
+    cost1:
+      cost: 10
+      plantType: 0
+      isPlant: 0
+    reward1:
+      cost: 20
+      plantType: 2
+      isPlant: 0
+    cost2:
+      cost: 10
+      plantType: 0
+      isPlant: 0
+    reward2:
+      cost: 1
+      plantType: 0
+      isPlant: 0
+  - title: A Beggar Approaches
+    description: A beggar approaches you asking for a small donation of sun jars
+      to help out his plants. Will you help a desperate soul?
+    probability: 0.1
+    cost1:
+      cost: 4
+      plantType: 0
+      isPlant: 0
+    reward1:
+      cost: 7
+      plantType: 2
+      isPlant: 1
+    cost2:
+      cost: 4
+      plantType: 0
+      isPlant: 0
+    reward2:
+      cost: 0
+      plantType: 0
+      isPlant: 0
+  eventDisplay: {fileID: 0}
+  title: {fileID: 0}
+  description: {fileID: 0}
+  cost1: {fileID: 0}
+  cost2: {fileID: 0}
+  reward1: {fileID: 0}
+  reward2: {fileID: 0}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
+--- !u!114 &1481528170344754032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320129303567326503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6f92f6106d86442bc54f7604785b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  NTime: 0

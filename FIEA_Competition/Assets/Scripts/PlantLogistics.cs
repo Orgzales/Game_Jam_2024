@@ -21,7 +21,7 @@ public class PlantLogistics : MonoBehaviour
             NextRound();
         }
     }
-    public static PlantLogistics instance;
+   
     public PlantType plantType;
     //Garden Stats
     public bool GotSun = false;
@@ -64,6 +64,7 @@ public class PlantLogistics : MonoBehaviour
     //    PlantDescription = Description;
     //}
 
+    
     public void NextRound()  //what happens each round
     {
         if (!IsDead) //if the plant is not dead
@@ -90,6 +91,7 @@ public class PlantLogistics : MonoBehaviour
     public PlantType getPlantType(){
         return plantType;
     }
+
     public void CheckStage()
     {
         float StageQ = MaxGrowthNeeded / 4f;
@@ -109,6 +111,7 @@ public class PlantLogistics : MonoBehaviour
         {
             PlantStages[2].SetActive(false);
             PlantStages[3].SetActive(true);
+            transform.parent.GetComponent<GardenTile>().isHarvest = true;
         }
 
     }

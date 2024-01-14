@@ -1,4 +1,3 @@
-repository "FIEA_Competition@void_func_FIEA@cloud"
+rep "FIEA_Competition@void_func_FIEA@cloud"
   path "/"
-    br "/main"
-    co "/main"
+    smartbranch "/main"

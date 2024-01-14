@@ -17,12 +17,18 @@ public class Trader : MonoBehaviour
 
     public bool CameraToWindow = false;
 
+    public Material[] materials;
+    public MeshRenderer activeLight;
+    public GameObject redLight;
+    public GameObject greenLight;
+
     private void Start()
     {
         instance = this;
         stock = GameManager.instance.getWorldSeeds();
         allCrops = GameManager.instance.getWorldCrops();
         CameraToWindow = false;
+        setUpShop(0);
 
     }
 
@@ -31,16 +37,25 @@ public class Trader : MonoBehaviour
         if (selling)
         {
             windowAccess.SetActive(true);
+            activeLight.material = materials[1];
+            redLight.SetActive(false);
+            greenLight.SetActive(true);
+        }
+        else
+        {
+            windowAccess.SetActive(false);
+            activeLight.material = materials[0];
+            redLight.SetActive(true);
+            greenLight.SetActive(false);
         }
     }
 
     public void clickWindow()
     {
         CameraToWindow = true;
-
+        StartCoroutine("CameraWait");
         windowAnim.SetBool("Open Window", true);
-        tradeDisplay.SetActive(true);
-        // GameManager.instance.nextRoundButton.interactable = false;
+        GameManager.instance.nextRoundButton.interactable = false;
     }
 
     public void closeWindow()
@@ -48,7 +63,14 @@ public class Trader : MonoBehaviour
         CameraToWindow = false;
         windowAnim.SetBool("Open Window", false);
         tradeDisplay.SetActive(false);
-        //GameManager.instance.nextRoundButton.interactable = true;
+        GameManager.instance.nextRoundButton.interactable = true;
+    }
+
+    IEnumerator CameraWait()
+    {
+        yield return new WaitForSeconds(2);
+        tradeDisplay.SetActive(true);
+
     }
 
     public void sellCrop(CropItem crop, int num)

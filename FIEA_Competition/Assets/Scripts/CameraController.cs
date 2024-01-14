@@ -21,10 +21,10 @@ public class CameraController : MonoBehaviour
     void Update()
     {
 
-        CamPos = Vector3.MoveTowards(transform.position, ViewPos, 1f * Time.deltaTime);
+        CamPos = Vector3.MoveTowards(transform.position, ViewPos, 1.5f * Time.deltaTime);
         transform.position = CamPos;
         transform.LookAt(ViewTarget);
-        Debug.Log(traderscript.CameraToWindow);
+        // Debug.Log(traderscript.CameraToWindow);
 
         if (traderscript.CameraToWindow) //from trader close window /open script
         {
@@ -33,7 +33,6 @@ public class CameraController : MonoBehaviour
                 IsLooking = true;
                 ViewPos = Target.transform.position;
             }
-
         }
         if (!traderscript.CameraToWindow)
         {

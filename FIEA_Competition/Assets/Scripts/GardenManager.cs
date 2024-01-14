@@ -46,6 +46,7 @@ public class GardenManager : MonoBehaviour
         else
         {
             choosingToggle = false;
+            PlayerPlant.instance.openMenu(false);
             foreach (GameObject x in availablePlants)
             {
                 PlantLogistics thisType = x.GetComponent<PlantLogistics>();
@@ -58,6 +59,8 @@ public class GardenManager : MonoBehaviour
 
             plantSelected = true;
             lastPlant = plantType;
+
+            Debug.Log(lastPlant);
 
             foreach (GardenTile x in tiles)
             {

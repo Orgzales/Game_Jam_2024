@@ -18,16 +18,28 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        addSeed(GameManager.instance.mushroom, 10);
+        
+    }
+
+    private void Start()
+    {
+        addSeed(GameManager.instance.mushroom, 1);
         addSeed(GameManager.instance.kale, 1);
-        addSeed(GameManager.instance.apple, 100);
-        addSeed(GameManager.instance.potato, 100);
+        addSeed(GameManager.instance.apple, 0);
+        addSeed(GameManager.instance.potato, 0);
+
+        addCrop(GameManager.instance.mushroomPlant, 6);
+        addCrop(GameManager.instance.kalePlant, 2);
+        addCrop(GameManager.instance.applePlant, 0);
+        addCrop(GameManager.instance.potatoPlant, 0);
     }
 
     public void toggleInventory()
     {
        isOpen = !isOpen;
         inventoryMenu.SetActive(isOpen);
+        GardenManager.instance.unselectPlant();
+        InventoryItem.sunSeleced = false;
 
         displayInventory();
     }

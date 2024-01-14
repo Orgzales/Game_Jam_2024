@@ -48,11 +48,25 @@ public class GardenTile : MonoBehaviour
         Destroy(plant);
     }
 
-    public void chooseMenuItem(int num) //Harvest = 2
+    public void chooseMenuItem(int num) //Harvest = 2, Feed = 3, Plant = 0
     {
         clearMenu();
+        plantCheckin();
 
+       
         menuItems[num].SetActive(true);
+
+        if (num.Equals(3))
+        {
+            if (plant)
+            {
+                if (plant.GetComponent<PlantLogistics>().GotSun)
+                {
+                    menuItems[num].SetActive(false);
+                }
+            }
+            
+        }
 
         if (isHarvest)
         {
@@ -65,6 +79,11 @@ public class GardenTile : MonoBehaviour
         foreach (GameObject x in menuItems)
         {
             x.SetActive(false);
+        }
+
+        if (isHarvest)
+        {
+            menuItems[2].SetActive(true);
         }
     }
 
@@ -118,7 +137,8 @@ public class GardenTile : MonoBehaviour
     {
         PlantLogistics thisPlant = plant.GetComponent<PlantLogistics>();
 
-
+        Player.instance.feedPlant(thisPlant);
+        menuItems[3].SetActive(false);
     }
 
     public void waterPlant()
@@ -131,8 +151,10 @@ public class GardenTile : MonoBehaviour
     public void harvestPlant()
     {
         PlantLogistics thisPlant = plant.GetComponent<PlantLogistics>();
+        isHarvest = false;
 
-
+        Player.instance.harvest(thisPlant);
+        menuItems[2].SetActive(false);
     }
 
 

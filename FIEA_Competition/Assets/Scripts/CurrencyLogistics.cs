@@ -37,7 +37,7 @@ public class CurrencyLogistics : MonoBehaviour
 
         foreach (int CropType in crops)
         {
-            Debug.Log(TotalAmount);
+            // Debug.Log(TotalAmount);
             switch (CropType)
             {
                 case (1):

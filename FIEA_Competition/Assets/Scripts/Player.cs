@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     [Header("Declaration")]
     Inventory inventory;
+    public static Player instance;
     public float plantHealth = 100f;
     public float hunger = 100f;
 
@@ -15,12 +16,15 @@ public class Player : MonoBehaviour
 
     public void sleep()
     {
-        // plant actions
 
-        // make more complex?
         if (!ate)
         {
-            hunger -= 20;
+            hunger -= 50;
+        }
+
+        if(!fedPlant)
+        {
+            plantHealth -= 50;
         }
 
         if (!survived())
@@ -29,6 +33,17 @@ public class Player : MonoBehaviour
         }
         fedPlant = false;
         ate = false;
+    }
+
+    public void harvest(PlantLogistics plant){
+        if(plant.isGrown()){
+            for(int i = 0; i < GameManager.instance.getWorldCrops().Count; i++){
+                if(plant.getPlantType().ToString() == GameManager.instance.getWorldCrops()[i].getName()){
+                    Inventory.instance.addCrop(GameManager.instance.getWorldCrops()[i], 1);
+                    break;
+                }
+            }
+        }
     }
 
     public void feedYourPlant()
@@ -49,10 +64,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void eat()
+    public void eat(CropItem food)
     {
         // remove crop, increase hunger if hunger < 100
-        ate = true;
+        if(Inventory.instance.getCropInventory().ContainsKey(food) && Inventory.instance.getCropInventory()[food] >= 1 && ate == false){
+            Inventory.instance.useFood(food);
+            hunger += food.getSaturation();
+            ate = true;
+        } else if(ate == true){
+            Debug.Log("Player already ate today");
+        }
     }
 
 

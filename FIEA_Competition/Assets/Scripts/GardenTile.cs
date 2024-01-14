@@ -5,16 +5,25 @@ using UnityEngine;
 public class GardenTile : MonoBehaviour
 {
     private Inventory inventory;
-    [HideInInspector]public GameObject plant;
-    [HideInInspector]public GameObject plantPreview;
+    [HideInInspector] public GameObject plant;
+    [HideInInspector] public GameObject plantPreview;
     private GardenManager manager;
 
     public GameObject plantMenu;
+    public SeedItem thisSeed;
+    public PlantType conserved;
+
+    public GameObject[] menuItems;
+    public bool isHarvest;
 
     private void Start()
     {
         inventory = Inventory.instance;
         manager = GardenManager.instance;
+    }
+
+    public void conservePlant(PlantType plant) {
+        conserved = plant;
     }
 
     public void previewPlant()
@@ -34,36 +43,72 @@ public class GardenTile : MonoBehaviour
         }
     }
 
-    public void placePlant() //this is what is called when the tile is clicked
+    public void destroyPlant()
     {
-       if (plant == null)
-        {
-            if (inventory.getSunJars() >= 0)
-            {
-                createPlant(1);
-            }
-        }
-            
-        plantCheckin();
+        Destroy(plant);
     }
 
-    private void plantCheckin()
+    public void chooseMenuItem(int num) //Harvest = 2
+    {
+        clearMenu();
+
+        menuItems[num].SetActive(true);
+
+        if (isHarvest)
+        {
+            menuItems[2].SetActive(true);
+        }
+    }
+
+    public void clearMenu()
+    {
+        foreach (GameObject x in menuItems)
+        {
+            x.SetActive(false);
+        }
+    }
+
+    public void placePlant() //this is what is called when the tile is clicked
+    {
+        // GardenManager.instance.setCurrentTile(this);
+       
+       // plantCheckin();
+    }
+
+    public void plantCheckin()
     {
         plantMenu.SetActive(true);
+       
     }
 
     public void replacePlant()
     {
-        if (inventory.getSunJars() >= 0)
+        if (manager.plantSelected)
         {
-            Destroy(plant);
-            createPlant(1);
+            if (plant != null)
+            {
+                if (manager.spawnPlant.Equals(plant))
+                {
+                    return;
+                }
+
+                Destroy(plant);
+            }
+
+            // if the player has the seed and the player has at least one
+            if (Inventory.instance.getSeedIventory().ContainsKey(Inventory.instance.getSeedByType(GardenManager.instance.lastPlant))
+            && Inventory.instance.getSeedIventory()[Inventory.instance.getSeedByType(GardenManager.instance.lastPlant)] >= 1)
+            {
+                Inventory.instance.useSeed(Inventory.instance.getSeedByType(GardenManager.instance.lastPlant));
+                createPlant();
+            } else {
+                Debug.Log("false");
+            }
         }
     }
 
-    private void createPlant(int cost)
+    private void createPlant()
     {
-        inventory.useSun(cost);
         plant = Instantiate(manager.spawnPlant, transform.position, Quaternion.identity);
         plant.transform.parent = this.transform;
         Destroy(plantPreview);

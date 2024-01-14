@@ -11,8 +11,12 @@ public class GardenManager : MonoBehaviour
 
     public GameObject[] availablePlants;
     public GameObject spawnPlant;
-    public bool plantSelected;
 
+    public PlantType lastPlant;
+    public bool plantSelected;
+    public GardenTile currentTile;
+
+    private bool choosingToggle;
 
     private void Awake()
     {
@@ -21,6 +25,9 @@ public class GardenManager : MonoBehaviour
         unselectPlant();
     }
 
+    public void setCurrentTile(GardenTile tile){
+        currentTile = tile;
+    }
     private void listTiles()
     {
         foreach (Transform child in tileParent)
@@ -31,31 +38,44 @@ public class GardenManager : MonoBehaviour
 
     public void choosePlant(PlantType plantType)
     {
-        foreach (GameObject x in availablePlants)
+        if (plantType.Equals(lastPlant) && !choosingToggle)
         {
-            PlantLogistics thisType = x.GetComponent<PlantLogistics>();
-
-            if (thisType.plantType.Equals(plantType))
+            unselectPlant();
+            choosingToggle = true;
+        }
+        else
+        {
+            choosingToggle = false;
+            foreach (GameObject x in availablePlants)
             {
-                spawnPlant = x;
+                PlantLogistics thisType = x.GetComponent<PlantLogistics>();
+
+                if (thisType.plantType.Equals(plantType))
+                {
+                    spawnPlant = x;
+                }
+            }
+
+            plantSelected = true;
+            lastPlant = plantType;
+
+            foreach (GardenTile x in tiles)
+            {
+                x.plantCheckin();
+                x.chooseMenuItem(0);
             }
         }
-
-        foreach (GardenTile x in tiles)
-        {
-            x.GetComponent<Button>().interactable = true;
-        }
-        plantSelected = true;
+       
+        
     }
 
     public void unselectPlant()
     {
-        plantSelected = false;
-
         foreach (GardenTile x in tiles)
         {
-            x.GetComponent<Button>().interactable = false;
+            x.clearMenu();
         }
+        plantSelected = false;
     }
 
 }

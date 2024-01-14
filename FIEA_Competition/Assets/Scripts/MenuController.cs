@@ -7,13 +7,18 @@ public class MenuController : MonoBehaviour
 
     public GameObject MainMenu;
     public GameObject SettingsMenu;
+    public GameObject InfoMenu;
 
     void Start()
     {
         BackButton();
     }
 
-    //Make info button later with menu
+    public void InfoButton()
+    {
+        MainMenu.SetActive(false);
+        InfoMenu.SetActive(true);
+    }
 
     public void PlayButton()
     {
@@ -30,6 +35,8 @@ public class MenuController : MonoBehaviour
     {
         MainMenu.SetActive(true);
         SettingsMenu.SetActive(false);
+        InfoMenu.SetActive(false);
+
     }
 
     public void ExitButton()

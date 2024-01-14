@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
     public bool isOpen;
 
-    public int sunJars = 0;
+    public int sunJars = 5;
     public Dictionary<SeedItem, int> seeds = new Dictionary<SeedItem, int>();
     public Dictionary<CropItem, int> crops = new Dictionary<CropItem, int>();
 
@@ -18,6 +18,10 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        addSeed(GameManager.instance.mushroom, 10);
+        addSeed(GameManager.instance.kale, 1);
+        addSeed(GameManager.instance.apple, 100);
+        addSeed(GameManager.instance.potato, 100);
     }
 
     public void toggleInventory()
@@ -42,10 +46,7 @@ public class Inventory : MonoBehaviour
                     {
                         x.SetActive(true);
                     }
-                    else
-                    {
-                        x.SetActive(false);
-                    }
+                   
                 }
             }
         }
@@ -73,6 +74,15 @@ public class Inventory : MonoBehaviour
         return seeds;
     }
 
+    
+    public SeedItem getSeedByType(PlantType type){
+        foreach(KeyValuePair<SeedItem, int> entry in seeds){
+            if(entry.Key.getPlantType() == type){
+                return entry.Key;
+            }
+        }
+        return null;
+    }
     public void addSeed(SeedItem seed, int num)
     {
         if (!seeds.ContainsKey(seed))
@@ -85,6 +95,10 @@ public class Inventory : MonoBehaviour
         }
 
     }
+
+    public void useSeed(SeedItem seed){
+        seeds[seed]--;
+    }
     public Dictionary<CropItem, int> getCropInventory()
     {
         return crops;
@@ -96,6 +110,12 @@ public class Inventory : MonoBehaviour
         }
         else{
             crops[crop] += num;
+        }
+    }
+
+    public void useFood(CropItem food){
+        if(crops.ContainsKey(food) && crops[food] >= 1){
+            crops[food]--;
         }
     }
 }
